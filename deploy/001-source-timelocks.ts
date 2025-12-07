@@ -38,8 +38,9 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const networkName = (hre.network.name as "hardhat") || "bsctestnet" || "bscmainnet";
   const live = hre.network.live;
 
+  // Use deployer as initial admin, will transfer to GovernorBravo later
   const getAdmin = async () => {
-    return live ? (await ethers.getContract("GovernorBravoDelegator")).address : deployer;
+    return deployer;
   };
 
   await deploy("NormalTimelock", {
